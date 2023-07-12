@@ -1,7 +1,7 @@
 #include "FastLED.h"
 #include <colors.h>
 
-#define NUM_LEDS 59
+#define NUM_LEDS 32
 #define DATA_PIN 2
 #define CLOCK_PIN 3
 #define LED_TYPE LPD8806
@@ -32,34 +32,34 @@ int maxGreen = 65;
 int minScale = 10;
 int maxScale = 255;
 
-int ledsPerLoop = 5;
-
 void setup() {
   delay(1000);
   FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
 
-  for (int pixel = 0; pixel < NUM_LEDS; pixel++) {
-    COLOR color = getRandomFireColor();
-    colorManager.setPixelColor(pixel, color);
-  }
-
+  colorManager.turnOff();
   FastLED.show();
 }
+
 
 void loop() {
-  for (int i = 0; i < ledsPerLoop; i++) {
-    int pixel = random(0, NUM_LEDS);
-    COLOR color = getRandomFireColor();
-    colorManager.setPixelColor(pixel, color);
-  }
-  FastLED.show();
-  delay(100);
-}
 
-COLOR getRandomFireColor() {
-  int green = random(minGreen, maxGreen);
-  int scale = random(minScale, maxScale);
-  COLOR color = COLOR(255, green, 0) % scale;
-  return color;
+  // first mode - up and down
+
+  int reps = random(5, 11);
+
+  for (int r = 0; r < reps; r++) {
+
+    COLOR c = randomColorWheel();
+
+    for (int i = 0; i < NUM_LEDS; i++) {
+      colorManager.setPixelColor(i, c, true);
+      delay(50);
+    }
+
+    for (int i = NUM_LEDS - 1; i >= 0; i--) {
+      colorManager.setPixelColor(i, OFF, true);
+      delay(50);
+    }
+  }
 }

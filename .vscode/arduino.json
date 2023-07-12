@@ -1,6 +1,6 @@
 {
     "board": "arduino:avr:uno",
-    "sketch": "leona\\leona.ino",
+    "sketch": "pbj\\pbj.ino",
     "port": "COM3",
     "output": "build"
 }
