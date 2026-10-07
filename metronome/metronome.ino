@@ -17,6 +17,7 @@
 #define OTHER_CLICK_FREQ 1000
 #define CLICK_LENGTH_MS 100
 #define TIME_SIG_DISPLAY_DURATION 3000 // ms
+#define MASTER_MUTE true // for debugging to mute the sound without turning off the power
 
 // these determine the tempo bands:
 // 40-100
@@ -68,6 +69,7 @@ volatile unsigned long timeSigDisplayStart = 0;
 
 void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(TIME_SIGNATURE_BUTTON_PIN, INPUT_PULLUP);
   pinMode(POWER_PIN, INPUT_PULLUP);
 
@@ -96,16 +98,21 @@ void setup() {
 
 }
 
+bool standbyLedState = LOW;
 void loop() {
   checkPower();
-  if (!power) {
+  if (MASTER_MUTE || !power) {
+    digitalWrite(LED_BUILTIN, standbyLedState);
+    standbyLedState = !standbyLedState;
     delay(beatLengthMs);
   }
   else {
     unsigned long curTime = millis();
     unsigned int freq = emphasizeFirstBeat && curBeat == 0 ? FIRST_CLICK_FREQ : OTHER_CLICK_FREQ;
+    digitalWrite(LED_BUILTIN, HIGH);
     tone(BUZZER_PIN, freq);
     delay(CLICK_LENGTH_MS);
+    digitalWrite(LED_BUILTIN, LOW);
     noTone(BUZZER_PIN);
     delay(clickDelayMs);
 
