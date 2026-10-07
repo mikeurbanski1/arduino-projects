@@ -13,11 +13,11 @@
 #define SEVEN_SEG_DISPLAY_ADDRESS   0x74
 
 // constants
-#define FIRST_CLICK_FREQ 2000
-#define OTHER_CLICK_FREQ 1000
-#define CLICK_LENGTH_MS 100
+#define FIRST_CLICK_FREQ 600
+#define OTHER_CLICK_FREQ 400
+#define CLICK_LENGTH_MS 50
 #define TIME_SIG_DISPLAY_DURATION 3000 // ms
-#define MASTER_MUTE true // for debugging to mute the sound without turning off the power
+#define MASTER_MUTE false // for debugging to mute the sound without turning off the power
 
 // these determine the tempo bands:
 // 40-100
