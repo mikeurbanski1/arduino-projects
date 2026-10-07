@@ -1,14 +1,14 @@
 #include "FastLED.h"
 #include <colors.h>
 
-#define NUM_LEDS 32
-#define DATA_PIN 2
-#define CLOCK_PIN 3
-#define LED_TYPE LPD8806
+#define NUM_LEDS 60
+#define DATA_PIN 3
+// #define CLOCK_PIN 3
+#define LED_TYPE WS2812B
 
 #define COLOR CRGB
 
-#define BRIGHTNESS 200
+#define BRIGHTNESS 100
 
 CRGB leds[NUM_LEDS];
 ColorManager colorManager(leds, NUM_LEDS);
@@ -45,13 +45,13 @@ void (*patterns[])() = {
 
 void setup() {
   delay(1000);
-  FastLED.addLeds<LED_TYPE, DATA_PIN, CLOCK_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.addLeds<LED_TYPE, DATA_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
 
-  for (int pixel = 0; pixel < NUM_LEDS; pixel++) {
-    COLOR color = getRandomFireColor();
-    colorManager.setPixelColor(pixel, color);
-  }
+//   for (int pixel = 0; pixel < NUM_LEDS; pixel++) {
+//     COLOR color = getRandomFireColor();
+//     colorManager.setPixelColor(pixel, color);
+//   }
 
   FastLED.show();
 }

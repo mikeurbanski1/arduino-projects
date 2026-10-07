@@ -1,6 +1,8 @@
 {
-    "board": "arduino:avr:uno",
-    "sketch": "pbj\\pbj.ino",
-    "port": "COM3",
-    "output": "build"
+    "board": "adafruit:samd:adafruit_trinket_m0",
+    "sketch": "trinket\\trinket.ino",
+    "port": "COM7",
+    "output": "build",
+    "programmer": "arduino:usbtinyisp",
+    "configuration": "opt=small,usbstack=arduino,debug=off"
 }
